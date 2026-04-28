@@ -1,7 +1,7 @@
 [project]
-name = "agentic-ai"
+name = "genai-sandbox"
 version = "0.1.0"
-description = "Add your description here"
+description = "A collection of Generative AI experiments — CV Q&A chatbots, LLM-based intent routing, and streaming API integrations."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
@@ -13,9 +13,4 @@ dependencies = [
     "pypdf>=6.0.0",
     "python-dotenv>=1.1.1",
     "rich>=14.1.0",
-]
-
-[tool.uv.workspace]
-members = [
-    "site-summarizer",
 ]
