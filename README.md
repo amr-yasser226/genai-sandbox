@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🧪 GenAI Sandbox
+# GenAI Sandbox
 
 **A collection of Generative AI experiments — from simple chatbots to streaming pipelines and LLM-powered routing.**
 
@@ -13,19 +13,19 @@
 
 ---
 
-## 📖 Overview
+## Overview
 
-This repository is a hands-on exploration of **Generative AI** concepts, built incrementally while learning the OpenAI API ecosystem. Each experiment lives in its own directory and focuses on a specific technique:
+This repository is a structured exploration of Generative AI concepts, developed incrementally to master the OpenAI API ecosystem and related tools. Each experiment is isolated within its own directory and focuses on specific implementation techniques:
 
 | # | Experiment | Technique | Provider |
 |---|-----------|-----------|----------|
-| 01 | [CV Q&A (Basic)](#01--cv-qa-basic) | PDF extraction → system prompt → chat loop | OpenAI |
-| 02 | [CV Q&A (Streaming)](#02--cv-qa-streaming) | Chunking, streaming tokens, Rich rendering | OpenRouter |
-| 03 | [LLM Flow Control](#03--llm-flow-control) | Intent parsing → JSON routing → function dispatch | OpenAI |
+| 01 | [CV Q&A (Basic)](#01-cv-qa-basic) | PDF extraction → system prompt → chat loop | OpenAI |
+| 02 | [CV Q&A (Streaming)](#02-cv-qa-streaming) | Chunking, streaming tokens, Rich rendering | OpenRouter |
+| 03 | [LLM Flow Control](#03-llm-flow-control) | Intent parsing → JSON routing → function dispatch | OpenAI |
 
 ---
 
-## 🏗️ Repository Structure
+## Repository Structure
 
 ```
 genai-sandbox/
@@ -51,13 +51,13 @@ genai-sandbox/
 
 ---
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
 - **Python 3.11+**
-- [**uv**](https://docs.astral.sh/uv/getting-started/installation/) — fast Python package manager
-- An API key from [OpenAI](https://platform.openai.com/api-keys) and/or [OpenRouter](https://openrouter.ai/keys)
+- [**uv**](https://docs.astral.sh/uv/getting-started/installation/) — High-performance Python package manager
+- API credentials from [OpenAI](https://platform.openai.com/api-keys) and/or [OpenRouter](https://openrouter.ai/keys)
 
 ### Setup
 
@@ -66,92 +66,91 @@ genai-sandbox/
 git clone https://github.com/amr-yasser226/genai-sandbox.git
 cd genai-sandbox
 
-# 2. Create a virtual environment and install dependencies
+# 2. Synchronize environment and install dependencies
 uv sync
 
-# 3. Configure your API keys
+# 3. Configure environment variables
 cp .env.example .env
-# Edit .env and paste your real keys
+# Update .env with valid API keys
 
-# 4. Add your CV/resume PDF to the project root
+# 4. Place a target PDF (e.g., resume) in the project root
 cp /path/to/your/resume.pdf my_cv.pdf
 ```
 
 ---
 
-## 🔬 Experiments
+## Experiments
 
 ### 01 — CV Q&A (Basic)
 
-A minimal chatbot that loads your CV into a system prompt and answers questions via the OpenAI API.
+A baseline chatbot that implements PDF text extraction and utilizes the OpenAI API (`gpt-4o-mini`) to answer queries based on the provided document context.
 
 ```bash
 uv run python 01_cv_qa_basic/main.py my_cv.pdf
 ```
 
-**Stack:** `openai` · `pypdf` · `python-dotenv`
+**Technical Stack:** `openai`, `pypdf`, `python-dotenv`
 
 ---
 
 ### 02 — CV Q&A (Streaming)
 
-An advanced version that chunks the CV for context management, streams tokens in real time, and renders the final answer as formatted Markdown using [Rich](https://github.com/Textualize/rich).
+An advanced implementation featuring real-time token streaming via OpenRouter. This version includes document chunking for context management and high-fidelity terminal rendering.
 
 ```bash
 uv run python 02_cv_qa_streaming/cv_qa_stream.py my_cv.pdf
 ```
 
-**Stack:** `openai` · `pdfplumber` · `rich` · `python-dotenv`
+**Technical Stack:** `openai`, `pdfplumber`, `rich`, `python-dotenv`
 
-**Features:**
-- Real-time token streaming with live output
-- Automatic sync fallback on stream failure
-- Beautiful Markdown rendering in the terminal
+**Key Features:**
+- Asynchronous token streaming with immediate UI feedback
+- Automated synchronous fallback mechanisms
+- Structured Markdown rendering for terminal output
 
 ---
 
 ### 03 — LLM Flow Control
 
-A Jupyter notebook demonstrating how to use an LLM as an **intent router** — the model parses natural-language math expressions, outputs structured JSON, and the code dispatches to the correct arithmetic function.
+A demonstration of utilizing Large Language Models as intent-based routers. The system parses natural language inputs, generates structured JSON responses, and programmatically dispatches requests to internal Python functions.
 
 ```bash
 uv run jupyter lab 03_llm_flow_control/llm_flow_control.ipynb
 ```
 
-**Stack:** `openai` · `json`
+**Technical Stack:** `openai`, `json`
 
-**Explores:**
-- Symbol-based routing (`+`, `-`, `*`, `/`) with if/elif chains
-- Dynamic dispatch via `globals()` (and why it fails)
+**Research Areas:**
+- Intent-driven routing architectures
+- Comparison of symbol-based vs. dynamic dispatch methods
+- Error handling in LLM-integrated control flows
 
 ---
 
-## ⚙️ Environment Variables
+## Environment Configuration
 
-| Variable | Used By | Description |
+| Variable | Scope | Description |
 |----------|---------|-------------|
-| `OPENAI_API_KEY` | 01, 03 | Your OpenAI API key |
-| `OPENROUTER_API_KEY` | 02 | Your OpenRouter API key |
+| `OPENAI_API_KEY` | 01, 03 | OpenAI Platform API key |
+| `OPENROUTER_API_KEY` | 02 | OpenRouter API key |
 | `OPENROUTER_API_BASE` | 02 | API base URL (default: `https://openrouter.ai/api/v1`) |
-| `OPENROUTER_MODEL` | 02 | Model to use (default: `deepseek/deepseek-chat-v3-0324:free`) |
-
-> Copy `.env.example` to `.env` and fill in your keys. The `.env` file is gitignored.
+| `OPENROUTER_MODEL` | 02 | Target model (default: `deepseek/deepseek-chat-v3-0324:free`) |
 
 ---
 
-## 🛠️ Tech Stack
+## Technical Stack Overview
 
 | Category | Tools |
 |----------|-------|
-| **Language** | Python 3.11 |
-| **Package Manager** | [uv](https://docs.astral.sh/uv/) |
-| **LLM APIs** | OpenAI, OpenRouter |
-| **PDF Parsing** | pypdf, pdfplumber |
-| **CLI Rendering** | Rich |
-| **Notebooks** | Jupyter Lab |
+| **Core Language** | Python 3.11 |
+| **Package Management** | [uv](https://docs.astral.sh/uv/) |
+| **Inference APIs** | OpenAI, OpenRouter |
+| **Document Processing** | pypdf, pdfplumber |
+| **Interface Design** | Rich (CLI) |
+| **Development** | Jupyter Lab |
 
 ---
 
-## 📄 License
+## License
 
-This project is for educational and personal exploration purposes.
+This repository is maintained for educational and research purposes.
