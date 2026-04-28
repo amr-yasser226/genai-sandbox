@@ -153,4 +153,4 @@ uv run jupyter lab 03_llm_flow_control/llm_flow_control.ipynb
 
 ## License
 
-This repository is maintained for educational and research purposes.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
